@@ -2,6 +2,8 @@
 
 GitHub link: https://github.com/bryanso/JuliaOracleODBC
 
+Troubleshooting Guide: https://github.com/bryanso/JuliaOracleODBC/blob/main/doc/JuliaOracleODBC-TroubleShooting.md
+
 ## Prerequisites
 
 You should have a running Oracle database accessible on your
@@ -381,3 +383,7 @@ Now we can connect using DSN:
     ...
 
 By setting up DSN you don't need to set up tnsnames.ora. That's why I have omitted "export TNS_ADMIN=..." above and it will still connect.
+
+## Troubleshooting Guide
+
+https://github.com/bryanso/JuliaOracleODBC/blob/main/doc/JuliaOracleODBC-TroubleShooting.md

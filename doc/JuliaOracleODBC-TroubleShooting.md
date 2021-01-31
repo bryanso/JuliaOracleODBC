@@ -1,6 +1,6 @@
-# Julia Oracle ODBC Trouble Shooting
+# Julia Oracle ODBC Troubleshooting
 
-GitHub link: https://github.com/bryanso/JuliaOracleODBC
+GitHub link: https://github.com/bryanso/JuliaOracleODBC/blob/main/doc/JuliaOracleODBC-TroubleShooting.md
 
 ## ERROR: Can't open lib
 
