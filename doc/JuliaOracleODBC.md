@@ -51,6 +51,26 @@ some default ODBC files
     -rw-r--r-- 1 root root    0 Jan 30 18:42 odbc.ini
     -rw-r--r-- 1 root root    0 Jan 30 18:42 odbcinst.ini
 
+### Where's the GUI?
+
+Ref: http://www.unixodbc.org/doc/UserManual/
+
+Reading up on unixODBC it was implied there will be some
+GUI apps that one can use to configure data sources (DNS). 
+
+They are:
+
+* ODBCConfig
+* DataManager
+
+But they are not found after making. I examined the 
+source code and didn't find them anywhere.  This is a
+mystery to me.  Appreciate any feedback about why
+they are gone.
+
+Meanwhile, to connect to Oracle database you don't
+need the GUI apps.
+
 ## Install Oracle Instant Client
 
 On your computer where you run Julia, download Oracle 
