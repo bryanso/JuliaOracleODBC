@@ -168,3 +168,19 @@ DSN (data source name).  Now we can test isql this way:
     SQLRowCount returns -1
     36 rows fetched
 
+## Firewall Issue
+
+If your Julia computer cannot "nc" to the Oracle server:
+
+    nc -vz <DB host> <DB port>
+
+then consider temporarily disabling the firewall from the
+Oracle server and retest.  Oracle Linux 7 command to do so is:
+
+    $ sudo systemctl stop firewalld
+
+If this resolves your problem, consider re-enabling the
+firewall but configure an allow list to allow port 1521
+(or whatever your DB port is) to accept incoming traffic.
+
+
