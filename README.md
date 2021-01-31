@@ -1,2 +1,6 @@
 # JuliaOracleODBC
-Connect to Oracle database using Julia and its ODBC package
+
+This is mainly a documentation effort to show how to connect to Oracle Database using Julia language and its ODBC package.
+
+See doc/ directory for info.
+
