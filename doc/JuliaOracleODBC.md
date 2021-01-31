@@ -187,7 +187,7 @@ Verify the Oracle database connection:
 
     $ cd /opt/oracle/instantclient_21_1
     $ export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_1
-    $ ./sqlplus <user>/<password>@<host>:<port>/<service name>
+    $ ./sqlplus <user>/<password>@<tns name>
 
 For example, my host is orcl.local and service name is pdb1:
 
@@ -273,3 +273,4 @@ Now we will establish a connection and perform a simple query:
        8 | DBSFWUSER
        9 | GGSYS
     ... 
+
