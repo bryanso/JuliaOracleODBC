@@ -147,10 +147,14 @@ that you can copy from:
 
     $ORACLE_HOME/network/admin/tnsnames.ora
 
-For example, I will create the following TNS entry for my database, using Oracle's EZ Connect format:
+You may simply "scp" that file and place it in the Instant Client network/admin directory. 
+
+For my example, I will simply create a new tnsnames.ora file instead of copying.  Sometimes it's easier this way!  The following is the TNS entry for my database, using Oracle's EZ Connect format.  It is just one line:
 
     $ sudo vi /opt/oracle/instantclient_21_1/network/admin/tnsnames.ora
     PDB1 = orcl.local:1521/pdb1
+
+Make it readable by all:
 
     $ sudo chmod 644 /opt/oracle/instantclient_21_1/network/admin/tnsnames.ora
 
