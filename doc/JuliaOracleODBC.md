@@ -274,3 +274,99 @@ Now we will establish a connection and perform a simple query:
        9 | GGSYS
     ... 
 
+## Using DSN
+
+Another common way to access the database is to set up DSNs (data source names).  Previously when we ran odbc_update_ini.sh it created a default data source file in $HOME/.odbc.ini
+
+For my installation I have the following:
+
+    $ cat ~/.odbc.ini
+    [OracleODBC-21]
+    AggregateSQLType = FLOAT
+    Application Attributes = T
+    Attributes = W
+    BatchAutocommitMode = IfAllSuccessful
+    BindAsFLOAT = F
+    CacheBufferSize = 20
+    CloseCursor = F
+    DisableDPM = F
+    DisableMTS = T
+    DisableRULEHint = T
+    Driver = Oracle 21 ODBC driver
+    DSN = OracleODBC-21
+    EXECSchemaOpt =
+    EXECSyntax = T
+    Failover = T
+    FailoverDelay = 10
+    FailoverRetryCount = 10
+    FetchBufferSize = 64000
+    ForceWCHAR = F
+    LobPrefetchSize = 8192
+    Lobs = T
+    Longs = T
+    MaxLargeData = 0
+    MaxTokenSize = 8192
+    MetadataIdDefault = F
+    QueryTimeout = T
+    ResultSets = T
+    ServerName = 
+    SQLGetData extensions = F
+    SQLTranslateErrors = F
+    StatementCache = F
+    Translation DLL =
+    Translation Option = 0
+    UseOCIDescribeAny = F
+    UserID = 
+
+It's almost good to go.  You only need to update
+
+    ServerName =
+
+to the TNS name, for example:
+
+    ServerName = PDB1
+
+Also notice the name in the first line: [OracleODBC-21].  This is our
+DSN (data source name). We need to copy all of the above into a special 
+file -- Julia's ODBC "ini" file.
+
+Julia's ODBC keeps DSN names in a special location.  First find it by:
+
+    $ julia
+    
+    julia> using ODBC, DBInterface, DataFrames
+
+    julia> realpath(joinpath(dirname(pathof(ODBC)), "../config/odbc.ini"))
+    "/home/bryanso/.julia/packages/ODBC/qhwMX/config/odbc.ini"
+    
+My location is /home/bryanso/.julia/packages/ODBC/qhwMX/config/odbc.ini
+
+Now edit the above file
+
+    $ vi /home/bryanso/.julia/packages/ODBC/qhwMX/config/odbc.ini
+
+and copy all the info from $HOME/.odbc.ini into that file.
+
+Now we can connect using DSN, only slightly simpler than the first method. 
+
+    $ export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_1
+    $ export TNS_ADMIN=/opt/oracle/instantclient_21_1/network/admin
+    $ julia
+    julia> using ODBC, DBInterface, DataFrames
+
+    julia> db = ODBC.Connection("DSN=OracleODBC-21;Uid=system;Pwd=secret")
+    ODBC.Connection(DSN=OracleODBC-21;Uid=system;Pwd=secret)
+
+    julia> DBInterface.execute(db, "SELECT table_name from dba_tables") |> DataFrame
+    2177×1 DataFrame
+      Row | TABLE_NAME                 
+          | String                     
+    ------+----------------------------
+        1 | IND$
+        2 | CLU$
+        3 | ICOL$
+        4 | COL$
+        5 | TAB$
+        6 | LOB$
+        7 | COLTYPE$
+    ...
