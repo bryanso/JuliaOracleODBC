@@ -362,6 +362,7 @@ and copy all the info from $HOME/.odbc.ini into that file.
 Now we can connect using DSN:
 
     $ export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_1
+    $ export TNS_ADMIN=/opt/oracle/instantclient_21_1/network/admin
     $ julia
     julia> using ODBC, DBInterface, DataFrames
 
@@ -381,8 +382,6 @@ Now we can connect using DSN:
         6 | LOB$
         7 | COLTYPE$
     ...
-
-By setting up DSN you don't need to set up tnsnames.ora. That's why I have omitted "export TNS_ADMIN=..." above and it will still connect.
 
 ## Troubleshooting Guide
 
