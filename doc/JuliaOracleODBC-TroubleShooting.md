@@ -2,6 +2,42 @@
 
 GitHub link: https://github.com/bryanso/JuliaOracleODBC
 
+## ERROR: Can't open lib
+
+    julia> db = ODBC.Connection("DSN=OracleODBC-21;Uid=system;Pwd=secret")
+    ERROR: 01000: [unixODBC][Driver Manager]Can't open lib '/opt/oracle/instantclient_21_1/libsqora.so.21.1' : file not found
+
+The above error is most likely caused by an unset or incorrectly
+set LD_LIBRARY_PATH env variable. Make sure you set:
+
+    $ export LD_LIBRARY_PATH=<Oracle Instant Client Path>
+
+e.g.
+
+    $ export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_1
+
+For csh/tcsh the syntax is:
+
+    > setenv LD_LIBRARY_PATH /opt/oracle/instantclient_21_1
+
+## ERROR: invalid username/password
+
+    julia> db = ODBC.Connection("OracleODBC-21", user="system", password="secret")
+    ERROR: 28000: [Oracle][ODBC][Ora]ORA-01017: invalid username/password; logon denied
+
+This error may be caused by forgetting to set TNS_ADMIN env variable.  
+See the Set Up tnsnames.ora discussion in https://github.com/bryanso/JuliaOracleODBC/blob/main/doc/JuliaOracleODBC.md.  Try:
+
+    $ export TNS_ADMIN=<Path to tnsnames.ora>
+
+e.g.
+
+    $ export TNS_ADMIN=/opt/oracle/instantclient_21_1/network/admin
+
+For csh/tcsh the syntax is:
+
+    > setenv TNS_ADMIN /opt/oracle/instantclient_21_1/network/admin
+
 ## Use Sql*Plus to verify database connection
 
 This was briefly covered in the JuliaOracleODBC.md doc.  
