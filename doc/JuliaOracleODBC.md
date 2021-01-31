@@ -12,6 +12,16 @@ network.  To access the DB over the network, you need to know:
 * the DB service name
 * a Db user and its password to login
 
+Examples used in this document:
+
+|Info         |Example Value| 
+|-------------|-------------|
+|hostname     | orcl.local  |
+|port         | 1521        |
+|service name | pdb1        |
+|user         | system      |
+|password     | secret      |
+
 Obviously your firewall rule needs to allow access between
 the Julia computer and the Oracle server.  You can test 
 the network connection this way:
