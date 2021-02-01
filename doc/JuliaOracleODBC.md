@@ -86,7 +86,7 @@ need the GUI apps.
 ## Install Oracle Instant Client
 
 On your computer where you run Julia, download Oracle 
-Instant Client from their website:
+Instant Client for Linux x86-64 from their website:
 
 https://www.oracle.com/database/technologies/instant-client/downloads.html
 
