@@ -219,4 +219,28 @@ If this resolves your problem, consider re-enabling the
 firewall but configure an allow list to allow port 1521
 (or whatever your DB port is) to accept incoming traffic.
 
+## MacOS: ERROR: Base.CodePointError{UInt32}
 
+The following error is caused by iODBC in MacOS:
+
+    julia> db = ODBC.Connection("Driver={Oracle 19 ODBC driver};Dbq=pdb1;Uid=system;Pwd=secret")
+    ERROR: Base.CodePointError{UInt32}(0x00380030)
+    Stacktrace:
+     [1] code_point_err(::UInt32) at ./char.jl:86
+     [2] Char at ./char.jl:160 [inlined]
+     [3] transcode(::Type{UInt8}, ::Array{UInt32,1}) at ./c.jl:286
+     [4] transcode at ./c.jl:292 [inlined]
+     [5] str(::Array{UInt32,1}, ::Int64) at /Users/bryanso/.julia/packages/ODBC/qhwMX/src/API.jl:58
+     [6] diagnostics(::ODBC.API.Handle) at /Users/bryanso/.julia/packages/ODBC/qhwMX/src/API.jl:554
+     [7] driverconnect(::String) at /Users/bryanso/.julia/packages/ODBC/qhwMX/src/API.jl:114
+     [8] connect at /Users/bryanso/.julia/packages/ODBC/qhwMX/src/API.jl:354 [inlined]
+     [9] ODBC.Connection(::String; user::Nothing, password::Nothing, extraauth::Nothing) at /Users/bryanso/.julia/packages/ODBC/qhwMX/src/dbinterface.jl:57
+     [10] ODBC.Connection(::String) at /Users/bryanso/.julia/packages/ODBC/qhwMX/src/dbinterface.jl:55
+     [11] top-level scope at REPL[2]:1
+
+Before running ODBC.Connection, change to unixODBC by
+
+    julia> ODBC.setunixODBC()
+
+    julia> db = ODBC.Connection("Driver={Oracle 19 ODBC driver};Dbq=pdb1;Uid=system;Pwd=secret")
+    ODBC.Connection(DSN=OracleODBC-19;Uid=system;Pwd=secret)
