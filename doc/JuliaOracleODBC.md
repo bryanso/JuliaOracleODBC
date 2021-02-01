@@ -266,8 +266,12 @@ and come back in to find it is remembered:
       "Oracle 21 ODBC driver" => "Driver=/opt/oracle/instantclient_21_1/libsqora.so#
       "ODBC Drivers"          => ""
 
+## Using Julia ODBC
+
 Now we will establish a connection and perform a simple query:
 
+    julia> using ODBC, DBInterface, DataFrames
+    
     julia> db = ODBC.Connection("Driver={Oracle 21 ODBC driver};Dbq=pdb1;Uid=system;Pwd=secret")
 
     julia> DBInterface.execute(db, "SELECT username FROM dba_users") |> DataFrame
@@ -357,7 +361,7 @@ Now edit the above file
 
     $ vi /home/bryanso/.julia/packages/ODBC/qhwMX/config/odbc.ini
 
-and copy all the info from $HOME/.odbc.ini into that file.
+and copy all the info from $HOME/.odbc.ini to the bottom of that file.
 
 Now we can connect using DSN:
 
@@ -365,6 +369,13 @@ Now we can connect using DSN:
     $ export TNS_ADMIN=/opt/oracle/instantclient_21_1/network/admin
     $ julia
     julia> using ODBC, DBInterface, DataFrames
+
+The following shows the DSN entries from /Users/bryanso/.julia/packages/ODBC/qhwMX/config/odbc.ini
+ 
+    julia> ODBC.dsns()
+    Dict{String,String} with 2 entries:
+      "OracleODBC-21" => "Oracle 21 ODBC driver"
+      "ODBC"          => ""
 
     julia> db = ODBC.Connection("DSN=OracleODBC-21;Uid=system;Pwd=secret")
     ODBC.Connection(DSN=OracleODBC-21;Uid=system;Pwd=secret)
