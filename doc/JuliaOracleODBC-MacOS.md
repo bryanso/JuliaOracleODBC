@@ -137,6 +137,8 @@ Note down the Driver path: /opt/oracle/instantclient_19_8/libsqora.dylib.19.1
 
 ## Set Up tnsnames.ora
 
+This is optional.  Skip to Setup Julia ODBC if you want to.
+
 Setting up TNS entries makes it easy for your users to 
 connect to the database.
 
@@ -218,7 +220,17 @@ uses iODBC but we have chosen to use unixODBC:
 
     julia> ODBC.setunixODBC()
 
+If you have set up TNS, use this:
+
     julia> db = ODBC.Connection("Driver={Oracle 19 ODBC driver};Dbq=pdb1;Uid=system;Pwd=secret")
+
+If you have not set up TNS, use this (that is enter the EZConnect string directly afte
+r Dbq):
+
+    julia> db = ODBC.Connection("Driver={Oracle 19 ODBC driver};Dbq=orcl.local:1521/pd
+b1;Uid=system;Pwd=secret")
+
+After that, try:
 
     julia> DBInterface.execute(db, "SELECT username FROM dba_users") |> DataFrame
     36×1 DataFrame
